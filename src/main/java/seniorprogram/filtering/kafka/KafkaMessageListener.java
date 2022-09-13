@@ -1,4 +1,4 @@
-package seniorprogram.fithering.filtering.kafka;
+package seniorprogram.filtering.kafka;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.TopicPartition;

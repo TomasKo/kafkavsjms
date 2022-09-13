@@ -1,4 +1,4 @@
-package seniorprogram.fithering.filtering.kafka;
+package seniorprogram.filtering.kafka;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

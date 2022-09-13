@@ -1,4 +1,4 @@
-package seniorprogram.fithering.filtering.jms;
+package seniorprogram.filtering.jms;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;

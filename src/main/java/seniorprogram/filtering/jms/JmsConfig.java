@@ -1,4 +1,4 @@
-package seniorprogram.fithering.filtering.jms;
+package seniorprogram.filtering.jms;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package seniorprogram.fithering.filtering.kafka;
+package seniorprogram.filtering.kafka;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;

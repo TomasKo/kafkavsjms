@@ -1,4 +1,4 @@
-package seniorprogram.fithering.filtering.jms;
+package seniorprogram.filtering.jms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;

@@ -37,8 +37,7 @@ public class KafkaConsumerConfig {
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> filterKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = kafkaListenerContainerFactory("filter");
-        factory.setRecordFilterStrategy(record -> record.value()
-                .contains("a"));
+        factory.setRecordFilterStrategy(record -> record.value().contains("a"));
         return factory;
     }
 

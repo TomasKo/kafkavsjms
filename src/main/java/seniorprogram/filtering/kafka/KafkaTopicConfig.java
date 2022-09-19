@@ -15,6 +15,8 @@ public class KafkaTopicConfig {
 
     private String topicName= "topic1";
 
+    private String topicName2= "topic2";
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
@@ -25,6 +27,11 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic topic1() {
         return new NewTopic(topicName, 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic topic2() {
+        return new NewTopic(topicName2, 1, (short) 1);
     }
 
 }

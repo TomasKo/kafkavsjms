@@ -109,13 +109,13 @@ markdown = Redcarpet.new("Hello World!")
 puts markdown.to_html
 ```
 
-### Kafka Configuration
+# Kafka Configuration
 
 ## Intro
 In this section is high-level overview of Apache Kafka configuration and snippets witch should help to understand basic configuration.
 
-## In Spring Boot
-# Configuration dependency
+### In Spring Boot
+#### Configuration dependency
 In Spring Boot the easiest way to implement Kafka is in maven dependency build toll declare:
 ```xml
 <dependency>
@@ -178,9 +178,9 @@ public class Application {
 
 }
 ```
-# Without Spring Boot
+### Without Spring Boot
 Now lets see the same simple implementation without use Spring Boot.
-# Configuration dependency
+#### Configuration dependency
 Spring Boot automatically declare the correct version which is compatible with your Boot version. 
 If we are not using Spring Boot, declare the kafka jar as a dependency:
 ```xml
@@ -215,6 +215,7 @@ public class Listener {
 
     @KafkaListener(id = "listener1", topics = "topic1")
     public void listener1(String in) {
+        //business logic 
         System.out.println(in);
     }
 
@@ -282,6 +283,35 @@ public class Config {
 }
 ```
 
+As the example shows, that without Spring Boot is need to be defined several infrastructure beans
+
+### Without Spring
+Now lets see simple usage of Kafka consumer without using Spring.
+
+```java
+        Properties props=new Properties();
+        props.setProperty("bootstrap.servers","localhost:9092");
+        props.setProperty("group.id","group1");
+        props.setProperty("enable.auto.commit","true");
+        props.setProperty("auto.commit.interval.ms","1000");
+        props.setProperty("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+        props.setProperty("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+        
+        KafkaConsumer<String, String> consumer=new KafkaConsumer<>(props);
+        consumer.subscribe(Arrays.asList("topic1","topic2"));
+        while(true){
+          ConsumerRecords<String, String> records=consumer.poll(Duration.ofMillis(100));
+          for(ConsumerRecord<String, String> record:records){
+                System.out.printf("offset = %s, key = %s, value = %s",record.offset(),record.key(),record.value());
+          }   
+        }
+
+```
+Setting enable.auto.commit means that offsets are committed automatically with a frequency controlled by the config auto.commit.interval.ms.
+
+In this example the consumer is subscribing to the topics topic1 and topic2 as part of a group of consumers called group1 as configured with group.id.
+
+The deserializer settings specify how to turn bytes into objects. For example, by specifying string deserializers, we are saying that our record's key and value will just be simple strings.
 
 <!-- ROADMAP -->
 ## Roadmap

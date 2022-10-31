@@ -39,16 +39,9 @@ public class PerformanceApplication {
             }
             long finishKafka = (System.currentTimeMillis() - start);
 
-            start = System.currentTimeMillis();
-            for (int i = 0; i < n; i++) {
-                kafkaProducer.sendAcksMessage("topic2", "message_" + i);
-            }
-            long finishAcksKafka = (System.currentTimeMillis() - start);
-
 
             System.out.println(String.format("JMS send count:%s time spend:%s  ", n, finishJms));
             System.out.println(String.format("Kafka send count:%s time spend:%s  ", n, finishKafka));
-            System.out.println(String.format("ACKS Kafka send count:%s time spend:%s  ", n, finishAcksKafka));
 
         }
 

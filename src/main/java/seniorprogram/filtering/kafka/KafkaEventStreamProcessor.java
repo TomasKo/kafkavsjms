@@ -18,6 +18,7 @@ public class KafkaEventStreamProcessor {
 
     @PostConstruct
     public void streamTopology(){
+
         KStream<String, String> kStream =
                 streamsBuilder.stream("topic2", Consumed.with(Serdes.String(), Serdes.String()));
         kStream.filter((key, value) -> value.startsWith("M") )

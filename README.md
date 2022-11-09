@@ -64,7 +64,7 @@ The JMS is a Java-based API and the first enterprise-level
 messaging API that gained widespread traction in the Information Technology industry. It is a messaging standard containing
 Java components that are designed to exchange messages.
 
-#General examples of using Kafka and JMS
+# General examples of using Kafka and JMS
 This section shows what of application in general and in witch industies they are used. 
 Many systems use remote procedure calls witch are synchronous- producer have to block process and wait until the called 
 method finish, and thus is problem in development enterprise applications. Here the message oriented systems provide grate
@@ -100,7 +100,7 @@ A real world example can be used application witch use to place order for a part
 
 To do this application would publish a message onto a JMS queue which includes an oreder identifier. One part of application can listen to the queue and respond to the event by take order identifier and look up in the database. Then place order with third party system, another part of application may responsible for taking the order from the queue and send the confirmation email to the customer.
 
-###Conclusion
+### Conclusion
 
 JMS can be use as message broker where 2 or more services want to communicate. This could be point to point or pub-sub mode
 as explained in the above. With JMS, producer can produce messages to an queue/topic and not worry about consumer being up. 
@@ -144,7 +144,7 @@ Companies witch use Kafka
 
 
 
-##Kafka Vs. JMS
+## Kafka Vs. JMS
 
 Introduction to the Kafka and Jms provide good examples why many times is preferable to use Kafka then JMS.
 General usage of Kafka architecture described above, shows that Kafka is a near real-time data streaming solution. Therefore, it is useful for systems such as financial processing, IoT, and real-time maintenance solutions.
@@ -416,7 +416,7 @@ public class JmsMessageListener {
 }
 ```
 
-#Consumer groups in Kafka
+# Consumer groups in Kafka
 
 As we mention above, Apache Kafka have typically two-way to use messaging system:
 
@@ -424,7 +424,7 @@ As we mention above, Apache Kafka have typically two-way to use messaging system
 - broadcast the message to all the consumers.
 For achieving both Kafka use consumer groups.
   
-##Consumer group
+## Consumer group
 Consumer group is grouping consumers together by group id. When a topic is consumed by consumers in the same
 group it granted that every record will be consumed only in one consumer. The records will be effeciently load-balanced
 over the consumer instances.
@@ -448,7 +448,7 @@ partition. If not extra consumer will stay inactive.
 The real advantages of consumer groups is when multiple consumers want process same data. If each consumer have different
 group id, it can consume same records from one topic.
 
-###How it is implemented in code?
+### How it is implemented in code?
 
 ```java
 @Component
@@ -467,13 +467,8 @@ public class KafkaMessageListener {
 }
 ```
 see the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/groups/kafka) 
-<!-- ROADMAP -->
-## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
@@ -505,9 +500,7 @@ Project Link: [https://github.com/TomasKo/seniorprogram](https://github.com/Toma
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

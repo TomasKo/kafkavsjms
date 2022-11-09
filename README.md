@@ -1,31 +1,5 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -34,11 +8,12 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h1 align="center">Apache Kafka VS Java Message System(JMS)</h1>
 
   <p align="center">
-    project_description
-    <br />
+    This document is about the analyze of tool Apache Kafka event streaming platform and comparison with regular java message service JMS.
+<!--    
+<br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
     <br />
@@ -47,7 +22,8 @@
     <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
     ·
     <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
-  </p>
+-->  
+</p>
 </div>
 
 
@@ -57,24 +33,12 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#Kafka Vs. JMS">Kafka Vs. JMS</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#Kafka Vs. JMS">Kafka Vs. JMS</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -82,32 +46,112 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+This Document is to get more knowledge of Apache Kafka and JMS tool and how they are usable for capturing data in real-time 
+event sources. In this document we define the problems and its solution in regular JMS and resolving the same problem with
+Apache Kafka.
+
+The conclusion of comparison can be guide for choosing Kafka to implement event streaming platform in some projects. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
+Apache Kafka and JMS are the most popular open source application used for messaging projects.
+They both handle how to exchange event data, such as application logs, metrics and messages. Characteristic features for
+Apache Kafka are low latency publish subscribe messaging system witch can efficiently handle large amounts of data.
+The JMS is a Java-based API and the first enterprise-level
+messaging API that gained widespread traction in the Information Technology industry. It is a messaging standard containing
+Java components that are designed to exchange messages.
+
+#General examples of using Kafka and JMS
+This section shows what of application in general and in witch industies they are used. 
+Many systems use remote procedure calls witch are synchronous- producer have to block process and wait until the called 
+method finish, and thus is problem in development enterprise applications. Here the message oriented systems provide grate
+solution for asynchronous problem. They are based on asynchronous structure and provide message delivery across multiple systems. 
+In generaly both have similar structure:
+
+- handling connections and session
+- have producers and consumers
+- sending and recieving messages
+
+## JMS
+
+Implementation of JMS and its usage can be in many ways. It can be implemented across applications, programing laguages
+and technologies.The JMS is grate solution for implementation fot systems witch want to comunicate or send messages between
+a destination.
 
 
-### Prerequisites
+Tha Java Message Service was design to develop business applications witch asynchronously exchange business data and events. It defines API witch is easily and efficiently supported to pass messages from one end-point to another. 
+JMS support
+messaging models like point-to-point(queuing) and publish-subscribe.
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- Point-to-Point (Queue destination): In this model, a message is delivered from a producer to one consumer. The messages are delivered to the destination, which is a queue, and then delivered to one of the consumers registered for the queue. While any number of producers can send messages to the queue, each message is guaranteed to be delivered, and consumed by one consumer. If no consumers are registered to consume the messages, the queue holds them until a consumer registers to consume them.
 
-```ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
-```
+
+- Publish/Subscribe (Topic destination): In this model, a message is delivered from a producer to any number of consumers. Messages are delivered to the topic destination, and then to all active consumers who have subscribed to the topic. In addition, any number of producers can send messages to a topic destination, and each message can be delivered to any number of subscribers. If there are no consumers registered, the topic destination doesn't hold messages unless it has durable subscription for inactive consumers. A durable subscription represents a consumer registered with the topic destination that can be inactive at the time the messages are sent to the topic.
+
+
+
+So JMS can be used as a mechanism to allow asynchronous request processing. 
+One reason to use is not to wait to finish the call or multiple consumers want to consume same request.
+Another reason is to alow multiple applications to access information via JMS.
+A real world example can be used application witch use to place order for a particular customer. Part of placing that order application want to store the order on third party system or send an email to the customer to inform that order has been made.
+
+To do this application would publish a message onto a JMS queue which includes an oreder identifier. One part of application can listen to the queue and respond to the event by take order identifier and look up in the database. Then place order with third party system, another part of application may responsible for taking the order from the queue and send the confirmation email to the customer.
+
+###Conclusion
+
+JMS can be use as message broker where 2 or more services want to communicate. This could be point to point or pub-sub mode
+as explained in the above. With JMS, producer can produce messages to an queue/topic and not worry about consumer being up. 
+JMS buffers these messages and delivers them once the consumer is up. 
+
+## Kafka
+
+Kafka is a event distributed streaming platform. Lot of different applications like web applications, mobile applications,
+and web server logs are writing logs or embedding data. So there can be ‘n’ number of applications witch want to exchange or collect
+data. Kafka can handle and store all this data in a very efficient manner.
+
+Kafka combines three key capabilities so you can implement your use cases for event streaming end-to-end with a single battle-tested solution:
+
+1. to Publish/Subscribe streams of events, including continuous import/export of your data from other systems.
+
+2. to store streams of events durably and reliably for as long as you want.
+3. to process streams of events as they occur or retrospectively.
+
+
+The Apache Kafka is regular used for:
+
+- Metrics − used for operational monitoring data. This involves aggregating statistics from distributed applications to produce centralized feeds of operational data.
+
+- Log Aggregation Solution − across an organization to collect logs from multiple services and make them available in a standard format to multiple consumers.
+
+- Stream Processing − read data from a topic, process it, and write processed data to a new topic where it becomes available for users and applications.
+  Apache Kafka’s strong durability is also very useful in the context of stream processing.
+  
+
+A real example of using Kafka can be Website activity tracking application. User can visit on webpage and perform any action
+like search, login, click on a product etc and all of these events the application will capture.
+Tracking event will create when user perform any action and message stream for this based on the kind of event 
+it will process and store to a specific topic by Kafka Producer.
+This kind of activity tracking often requires a very high volume of throughput,
+messages are generated for each action.
+
+
+Companies witch use Kafka
+
+- The New York Times uses Apache Kafka and the Kafka Streams to store and distribute, in real-time, published content to the various applications and systems that make it available to the readers.
+
+
+
+##Kafka Vs. JMS
+
+Introduction to the Kafka and Jms provide good examples why many times is preferable to use Kafka then JMS.
+General usage of Kafka architecture described above, shows that Kafka is a near real-time data streaming solution. Therefore, it is useful for systems such as financial processing, IoT, and real-time maintenance solutions.
+
+JMS can be place in group of not real-time, despite its message processing is asynchronous.  JMS also uses the imperative programming paradigm, which can be substantially slower than the Apache Kafka method.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # Kafka Configuration
 
@@ -313,6 +357,116 @@ In this example the consumer is subscribing to the topics topic1 and topic2 as p
 
 The deserializer settings specify how to turn bytes into objects. For example, by specifying string deserializers, we are saying that our record's key and value will just be simple strings.
 
+# JMS Configuration
+
+For JMS confuguration
+
+### In Spring Boot
+```java
+@Configuration
+@EnableJms
+public class JmsConfig {
+
+    @Bean
+    public JmsListenerContainerFactory<?> jmsListenerContainerFactory() {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory());
+        return factory;
+    }
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        return new ActiveMQConnectionFactory("tcp://localhost:61616");
+    }
+
+    @Bean
+    public JmsTemplate jmsTemplate() {
+        return new JmsTemplate(connectionFactory());
+    }
+}
+```
+For the minimal consumer application is needed to implement:
+```java
+@Component
+public class JmsMessageProducer {
+    
+    private JmsTemplate jmsTemplate;
+
+    public void setJmsTemplate(JmsTemplate jmsTemplate) {
+        this.jmsTemplate = jmsTemplate;
+    }
+
+    public void sendMessage(final Object message) {
+        this.jmsTemplate.convertAndSend(message);
+    }
+}
+```
+For the minimal consumer application is needed to implement:
+
+```java
+@Component
+public class JmsMessageListener {
+
+    private static final Logger logger = LoggerFactory.getLogger(JmsMessageListener.class);
+
+    @JmsListener(destination = "queue-1")
+    public void sampleJmsListenerMethod(TextMessage message) throws JMSException {
+        logger.info(String.format("----Listener1 Received text message: %s ---------", message.getText()));
+    }
+}
+```
+
+#Consumer groups in Kafka
+
+As we mention above, Apache Kafka have typically two-way to use messaging system:
+
+- send a message to targeted group of consumers which can be just one consumer
+- broadcast the message to all the consumers.
+For achieving both Kafka use consumer groups.
+  
+##Consumer group
+Consumer group is grouping consumers together by group id. When a topic is consumed by consumers in the same
+group it granted that every record will be consumed only in one consumer. The records will be effeciently load-balanced
+over the consumer instances.
+
+This ensures parallel processing of data where consumers are never getting involved in processing same record.
+
+Mentioned above Kafka have topic witch consist at least one or more partitions. Kafka ensure that consumer process only one
+partition in group.
+
+![Topic with one consumer](files/groups-kafka1.jpg)
+Let see on chart if topic have two partitions and only one consumer in a group, the consumer will process data from both partitions.
+
+![Topic with two consumers](files/groups-kafka2.jpg)
+If same topic have two consumers with same consumer group id, each consumer will process data from only one partition.
+
+![Topic with three consumers](files/groups-kafka3.jpg)
+If same topic have more than one consumer with same group id and read from one topic, then topic need to have more than one
+partition. If not extra consumer will stay inactive.
+
+![Topic with one consumer](files/groups-kafka4.jpg)
+The real advantages of consumer groups is when multiple consumers want process same data. If each consumer have different
+group id, it can consume same records from one topic.
+
+###How it is implemented in code?
+
+```java
+@Component
+public class KafkaMessageListener {
+    @KafkaListener(topics = "topic1", containerFactory = "group1KafkaListenerContainerFactory")
+    public void listenGroup1(String message) {
+      System.out.println("Received Message in group1 listener: " + message);
+      this.g1Latch.countDown();
+    }
+  
+    @KafkaListener(topics = "topic1", containerFactory = "group2KafkaListenerContainerFactory")
+    public void listenGroup2(String message) {
+      System.out.println("Received Message in group2 listener: " + message);
+      this.g2Latch.countDown();
+    }
+}
+```
+see the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/groups/kafka) 
 <!-- ROADMAP -->
 ## Roadmap
 

@@ -1,4 +1,4 @@
-package com.erni.seniorprogram.performance.jms;
+package seniorprogram.performance.jms;
 
 import javax.jms.ConnectionFactory;
 

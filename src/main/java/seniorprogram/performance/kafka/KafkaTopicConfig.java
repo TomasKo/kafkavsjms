@@ -1,4 +1,4 @@
-package com.erni.seniorprogram.performance.kafka;
+package seniorprogram.performance.kafka;
 import java.util.HashMap;
 import java.util.Map;
 

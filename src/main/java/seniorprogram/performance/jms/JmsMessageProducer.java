@@ -1,4 +1,4 @@
-package com.erni.seniorprogram.performance.jms;
+package seniorprogram.performance.jms;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

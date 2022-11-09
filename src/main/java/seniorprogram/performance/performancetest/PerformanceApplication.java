@@ -1,7 +1,7 @@
-package com.erni.seniorprogram.performance.performancetest;
+package seniorprogram.performance.performancetest;
 
-import com.erni.seniorprogram.performance.jms.JmsMessageProducer;
-import com.erni.seniorprogram.performance.kafka.KafkaMessageProducer;
+import seniorprogram.performance.jms.JmsMessageProducer;
+import seniorprogram.performance.kafka.KafkaMessageProducer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;

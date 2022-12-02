@@ -11,7 +11,7 @@
 <h1 align="center">Apache Kafka VS Java Message System(JMS)</h1>
 
   <p align="center">
-    This document is about the analyze of tool Apache Kafka event streaming platform and comparison with regular java message service JMS.
+    This document is about the analyse of tool Apache Kafka event streaming platform and comparison with regular java message service JMS.
 <!--    
 <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
@@ -46,7 +46,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This Document is to get more knowledge of Apache Kafka and JMS tool and how they are usable for capturing data in real-time 
+This Document is about to get more knowledge of Apache Kafka and JMS tool and how they are usable for capturing data in real-time 
 event sources. In this document we define the problems and its solution in regular JMS and resolving the same problem with
 Apache Kafka.
 
@@ -65,7 +65,7 @@ messaging API that gained widespread traction in the Information Technology indu
 Java components that are designed to exchange messages.
 
 # General examples of using Kafka and JMS
-This section shows what of application in general and in witch industies they are used. 
+This section shows what Kafka and JMS are in general and in witch industies they are used. 
 Many systems use remote procedure calls witch are synchronous- producer have to block process and wait until the called 
 method finish, and thus is problem in development enterprise applications. Here the message oriented systems provide grate
 solution for asynchronous problem. They are based on asynchronous structure and provide message delivery across multiple systems. 
@@ -466,21 +466,138 @@ public class KafkaMessageListener {
     }
 }
 ```
-see the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/groups/kafka) 
+See the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/groups/kafka) 
 
 
+# Topics in JMS
+This chapter is about how topic are use in JMS and how similar is to ques in Kafka.
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+Jms have queue and topic. Consumer in a queue never receive the same message, each message consume only one consumer as shown in the example.
+![Topic with two consumers](files/jms-queue.png)
+
+Topis in JMS are used to broadcast messages, one message is delivere to all consumers.
+
+![Topic with two consumers](files/jms-topic.png)
+
+## How it is implement?
+To sending or recieving data from topics is basicaly configuration issue when is JMS factory initialized. 
+For the consumer is need to set up setPubSubDomain to true in jms listener container factory and for producer i set up same
+configuration in jms template. Example of configuration: 
+
+```java
+public JmsListenerContainerFactory<?> jmsListenerContainerFactory() {
+    DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+    factory.setConnectionFactory(connectionFactory());
+    factory.setPubSubDomain(true);
+    return factory;
+}
+
+public JmsTemplate jmsTemplate() {
+    JmsTemplate jmsTemplate= new JmsTemplate(connectionFactory());
+    jmsTemplate.setPubSubDomain(true);
+    return jmsTemplate;
+}
+```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+#Performance
 
+JMS send count:1 time spend:520  
+Kafka send count:1 time spend:131  
+JMS send count:1 time spend:61  
+Kafka send count:1 time spend:1  
+JMS send count:1 time spend:50  
+Kafka send count:1 time spend:1  
+Average JMS send count:1 time spend:210  
+Average Kafka send count:1 time spend:44  
+JMS send count:100 time spend:2646  
+Kafka send count:100 time spend:12  
+JMS send count:100 time spend:1909  
+Kafka send count:100 time spend:15  
+JMS send count:100 time spend:2109  
+Kafka send count:100 time spend:7  
+Average JMS send count:100 time spend:2431  
+Average Kafka send count:100 time spend:55  
+JMS send count:1000 time spend:18541  
+Kafka send count:1000 time spend:65  
+JMS send count:1000 time spend:16695  
+Kafka send count:1000 time spend:18  
+JMS send count:1000 time spend:15204  
+Kafka send count:1000 time spend:10  
+Average JMS send count:1000 time spend:19245  
+Average Kafka send count:1000 time spend:86  
+JMS send count:10000 time spend:159951  
+Kafka send count:10000 time spend:104  
+JMS send count:10000 time spend:177280  
+Kafka send count:10000 time spend:54  
+2022-12-01 11:20:25.615  INFO 8260 --- [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node -1 disconnected.
+JMS send count:10000 time spend:215107  
+Kafka send count:10000 time spend:52  
+Average JMS send count:10000 time spend:203357  
+Average Kafka send count:10000 time spend:156
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- LICENSE -->
-## License
+# Filtering
+## JMS Message Selector
+For filter the messages in JMS is use message selector. It configures at consumer and it specify witch messages is 
+consumer interested in. A selector is an conditional expression witch define rule for filtering.
 
+The message consumer recieves only messages whose properties match the selector. Let it show on example:
 
+For the implementation first producer have to configure to send properties on which consumer will be filtering the messages.
+That means for jmsTemplate we need to add string property:
+
+```java
+public void sendTextMessageWithProperty(String destination, String message, String property) {
+    jmsTemplate.convertAndSend(destination, message,mp-> {
+        mp.setStringProperty("myproperty", property);
+        return mp;
+    });
+}
+```
+
+Then is really easy for listener to define selector which defined by condition which messages will be consumed.
+
+```java
+@JmsListener(destination = "queue-3", selector = "myproperty = 'hight'")
+public void sampleJmsListenerMethod2(TextMessage message) throws JMSException {
+    logger.info(String.format("----Listener2 Received text message: %s ---------", message.getText()));
+}
+```
+See the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/filtering/jms)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Kafka filtering
+
+Transformations can be configured with predicates, so the filtering is applied only to records which satisfy a condition.
+This predicates are speciefied in the connector configuration and must be declared in listener container factory . Let see on example:
+
+```java
+@Bean
+public ConcurrentKafkaListenerContainerFactory<String, String> filterKafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, String> factory = kafkaListenerContainerFactory("filter");
+    factory.setRecordFilterStrategy(record -> record.value().contains("mystring"));
+    return factory;
+}
+```
+
+Kafka have also posibility to filter by using streams. Stream filtering can be used when you want to filter specific 
+events from a Kafka topic and write the filtered stream to another Kafka topic.
+Let see on example:
+```java
+public void streamTopology(){
+    KStream<String, String> kStream =
+            streamsBuilder.stream("topic1", Consumed.with(Serdes.String(), Serdes.String()));
+    kStream.filter((key, value) -> value.startsWith("M") )
+            .peek((k, v) -> System.out.println("Filtering message:"+v))
+            .to("topic2", Produced.with(Serdes.String(), Serdes.String()));
+}
+```
+See the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/filtering/kafka)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -497,12 +614,7 @@ Project Link: [https://github.com/TomasKo/seniorprogram](https://github.com/Toma
 
 
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
 
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 

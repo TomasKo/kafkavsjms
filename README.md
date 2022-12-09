@@ -50,7 +50,8 @@ This Document is about to get more knowledge of Apache Kafka and JMS tool and ho
 event sources. In this document we define the problems and its solution in regular JMS and resolving the same problem with
 Apache Kafka. 
 
-Most of the examples has it own implementation in Java and all implementation you can find [here.](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram)
+Most of the examples has it own implementation in Java and all implementation you can find [here.](seniorprogram)
+The Kafka and JMS(ActiveMQ) we dockerized and how you run it you find [here.](set-up-README.md)
 
 The conclusion of comparison can be guide for choosing Kafka to implement event streaming platform in some projects. 
 

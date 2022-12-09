@@ -48,7 +48,9 @@
 ## About The Project
 This Document is about to get more knowledge of Apache Kafka and JMS tool and how they are usable for capturing data in real-time 
 event sources. In this document we define the problems and its solution in regular JMS and resolving the same problem with
-Apache Kafka.
+Apache Kafka. 
+
+Most of the examples has it own implementation in Java and all implementation you can find [here.](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram)
 
 The conclusion of comparison can be guide for choosing Kafka to implement event streaming platform in some projects. 
 
@@ -504,39 +506,32 @@ public JmsTemplate jmsTemplate() {
 
 #Performance
 
-JMS send count:1 time spend:520  
-Kafka send count:1 time spend:131  
-JMS send count:1 time spend:61  
-Kafka send count:1 time spend:1  
-JMS send count:1 time spend:50  
-Kafka send count:1 time spend:1  
+In general Kafka is distributed streaming platform witch offers also horizontal scalability
+and high throughput. For real time data processing is pickup Kafka over JMS more common.
+Kafka is way faster than JMS and it can handle millions of messages per second.
+
+In this part we implement small performance test where we show the differences in processing. 
+We implement producers witch only send messages to show the difference.
+
+In the example we send 1, 100, 1000 and 10000 of messages several times and in the end we avarage the 
+result witch shows the chart 
+
+![Topic with two consumers](files/chart-performance.png)
+
+ 
 Average JMS send count:1 time spend:210  
-Average Kafka send count:1 time spend:44  
-JMS send count:100 time spend:2646  
-Kafka send count:100 time spend:12  
-JMS send count:100 time spend:1909  
-Kafka send count:100 time spend:15  
-JMS send count:100 time spend:2109  
-Kafka send count:100 time spend:7  
+Average Kafka send count:1 time spend:44
+
 Average JMS send count:100 time spend:2431  
 Average Kafka send count:100 time spend:55  
-JMS send count:1000 time spend:18541  
-Kafka send count:1000 time spend:65  
-JMS send count:1000 time spend:16695  
-Kafka send count:1000 time spend:18  
-JMS send count:1000 time spend:15204  
-Kafka send count:1000 time spend:10  
+
 Average JMS send count:1000 time spend:19245  
 Average Kafka send count:1000 time spend:86  
-JMS send count:10000 time spend:159951  
-Kafka send count:10000 time spend:104  
-JMS send count:10000 time spend:177280  
-Kafka send count:10000 time spend:54  
-2022-12-01 11:20:25.615  INFO 8260 --- [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node -1 disconnected.
-JMS send count:10000 time spend:215107  
-Kafka send count:10000 time spend:52  
+
 Average JMS send count:10000 time spend:203357  
 Average Kafka send count:10000 time spend:156
+
+As show the result from example above we can prove that Kafka is more effecient in processing the messages.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -599,8 +594,48 @@ public void streamTopology(){
 ```
 See the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/filtering/kafka)
 
+### Conclusion
+Kafka has more otions how to filter the messages than a JMS. In JMS is filtering implement by configuration where it is more
+complicated to wrote condition. On the other side in Kafka is esier to wrote condition for filtering via configuration
+and also Kafka have posibility to filter via streams witch is modern functional programming.   
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+# Ordering
+
+## JMS order of messages
+Jms preserve the order of messages on a topic by single producer to all consumer. Single consumer on queue also provide order
+when messeges are send by single producer.
+
+If there is more consumers on a single queue the consumers will compete for messages and the order will be lost. The solve this Jms like ActiveMq use:
+- [Exclusive consumer](https://activemq.apache.org/exclusive-consumer)  wich allows only a single consumer to consume from the queue at once to preserve order
+- [Message groups](https://activemq.apache.org/message-groups) which splits the messages on a queue into parralel virtual queues to ensure that messages to a single message
+group will have their order preserved and different groups will be load balanced to different consumers.
+
+## Order guaranetee in Kafka
+
+Ordering with partitioning is most important features of Kafka. With that Kafka do load balancing of messages and garantee
+ordering in a cluster, which otherwise would not be possible.
+To achieve higher performance for processing the messages aplication implement multiple instances of the consumer application.
+To do that Kafka has the concept of partitions within the topics which could provide both ordering garantees and load balancing
+over a poll of consumers.
+
+Each partition is an ordered sequence of messages and for the messages are assigned a sequential id called the offset. 
+The offset uniquely identifies each message within the partition. Topic than have multiple partitions where each message 
+have their own offset. 
+
+To achieve this partitioning, Kafka has 2 ways:
+1) Define a Key for partitioning which would be used as a key for default partitioning logic.
+2) Write a Partitioning class to define our own partitioning logic.
+
+For ordering we used partition logic. Where is easy to implement send message to partition:
+```java
+public void sendMessageToPartition(String topic, String message, int partition) {
+    kafkaTemplate.send(topic, partition, null, message);
+}
+```
+By that configuration we guarantee that sended message will have correct order in consumer.
+See the functional [example](https://github.com/TomasKo/seniorprogram/tree/develop/src/main/java/seniorprogram/ordering/kafka)
 
 
 <!-- CONTACT -->

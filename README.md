@@ -41,22 +41,22 @@
     <li>
       <a href="#General examples of using Kafka and JMS">General examples of using Kafka and JMS</a>
       <ul>
-        <li><a href="##JMS">JMS</a></li>
+        <li><a href="#JMS">JMS</a></li>
       </ul>
       <ul>
-        <li><a href="##Kafka">Kafka</a></li>
+        <li><a href="#Kafka">Kafka</a></li>
       </ul>
       <ul>
-        <li><a href="##Kafka in Spring Boot">Kafka in Spring Boot</a></li>
+        <li><a href="#Kafka in Spring Boot">Kafka in Spring Boot</a></li>
       </ul>
       <ul>
-        <li><a href="##Kafka without Spring Boot">Kafka without Spring Boot</a></li>
+        <li><a href="#Kafka without Spring Boot">Kafka without Spring Boot</a></li>
       </ul>
       <ul>
-        <li><a href="##Kafka without Spring">Kafka without Spring</a></li>
+        <li><a href="#Kafka without Spring">Kafka without Spring</a></li>
       </ul>
       <ul>
-        <li><a href="##JMS Configuration">JMS Configuration</a></li>
+        <li><a href="#JMS Configuration">JMS Configuration</a></li>
       </ul>
     </li>
     <li>
@@ -69,7 +69,7 @@
       <a href="#Performance">Performance</a>
     </li>
     <li>
-      <a href="# Filtering">Filtering</a>
+      <a href="#Filtering">Filtering</a>
       <ul>
         <li><a href="##JMS Message Selector">JMS Message Selector</a></li>
       </ul>
@@ -78,7 +78,7 @@
       </ul>
     </li>
     <li>
-      <a href="# Ordering">Ordering</a>
+      <a href="#ordering">Ordering</a>
       <ul>
         <li><a href="##JMS order of messages">JMS order of messages</a></li>
       </ul>
@@ -114,6 +114,7 @@ The JMS is a Java-based API and the first enterprise-level
 messaging API that gained widespread traction in the Information Technology industry. It is a messaging standard containing
 Java components that are designed to exchange messages.
 
+<!-- General examples of using Kafka and JMS -->
 # General examples of using Kafka and JMS
 This section shows what Kafka and JMS are in general and in which industries they are used. 
 Many systems use remote procedure calls which are synchronous- producer must block process and wait until the called 

@@ -39,7 +39,7 @@
       </ul>
     </li>
     <li>
-      <a href="#General examples of using Kafka and JMS">General examples of using Kafka and JMS</a>
+      <a href="#generalexamplesofusingkafkaandjms">General examples of using Kafka and JMS</a>
       <ul>
         <li><a href="#JMS">JMS</a></li>
       </ul>
@@ -114,7 +114,7 @@ The JMS is a Java-based API and the first enterprise-level
 messaging API that gained widespread traction in the Information Technology industry. It is a messaging standard containing
 Java components that are designed to exchange messages.
 
-<!-- General examples of using Kafka and JMS -->
+<!-- generalexamplesofusingkafkaandjms -->
 # General examples of using Kafka and JMS
 This section shows what Kafka and JMS are in general and in which industries they are used. 
 Many systems use remote procedure calls which are synchronous- producer must block process and wait until the called 

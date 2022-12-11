@@ -33,9 +33,57 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#Kafka Vs. JMS">Kafka Vs. JMS</a>
+      <a href="#About The Project">About The Project</a>
       <ul>
-        <li><a href="#Kafka Vs. JMS">Kafka Vs. JMS</a></li>
+        <li><a href="#Getting Started">Getting Started</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#General examples of using Kafka and JMS">General examples of using Kafka and JMS</a>
+      <ul>
+        <li><a href="##JMS">JMS</a></li>
+      </ul>
+      <ul>
+        <li><a href="##Kafka">Kafka</a></li>
+      </ul>
+      <ul>
+        <li><a href="##Kafka in Spring Boot">Kafka in Spring Boot</a></li>
+      </ul>
+      <ul>
+        <li><a href="##Kafka without Spring Boot">Kafka without Spring Boot</a></li>
+      </ul>
+      <ul>
+        <li><a href="##Kafka without Spring">Kafka without Spring</a></li>
+      </ul>
+      <ul>
+        <li><a href="##JMS Configuration">JMS Configuration</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#Consumer groups in Kafka">Consumer groups in Kafka</a>
+    </li>
+    <li>
+      <a href="#Topics in JMS">Topics in JMS</a>
+    </li>
+    <li>
+      <a href="#Performance">Performance</a>
+    </li>
+    <li>
+      <a href="# Filtering">Filtering</a>
+      <ul>
+        <li><a href="##JMS Message Selector">JMS Message Selector</a></li>
+      </ul>
+      <ul>
+        <li><a href="##Kafka filtering">Kafka filtering</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="# Ordering">Ordering</a>
+      <ul>
+        <li><a href="##JMS order of messages">JMS order of messages</a></li>
+      </ul>
+      <ul>
+        <li><a href="##Order guarantee in Kafka">Order guarantee in Kafka</a></li>
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
@@ -45,7 +93,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+# About The Project
 This Document is about to get more knowledge of Apache Kafka and JMS tool and how they are usable for capturing data in real-time 
 event sources. In this document we define the problems and its solution in regular JMS and resolving the same problem with
 Apache Kafka. 
@@ -55,7 +103,6 @@ The Kafka and JMS(ActiveMQ) we dockerized and how you run it you find [here.](se
 
 The conclusion of comparison can be guide for choosing Kafka to implement event streaming platform in some projects. 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -156,13 +203,13 @@ JMS can be place in group of not real-time, despite its message processing is as
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-# Kafka Configuration
+# Configuration
 
 ## Intro
-In this section is high-level overview of Apache Kafka configuration and snippets which should help to understand basic configuration.
+In this section is high-level overview of Apache Kafka and JMS configuration and snippets which should help to understand basic configuration.
 
-### In Spring Boot
-#### Configuration dependency
+## Kafka in Spring Boot
+### Configuration dependency
 In Spring Boot the easiest way to implement Kafka is in maven dependency build toll declare:
 ```xml
 <dependency>
@@ -225,9 +272,9 @@ public class Application {
 
 }
 ```
-### Without Spring Boot
+## Kafka without Spring Boot
 Now let’s see the same simple implementation without use Spring Boot.
-#### Configuration dependency
+### Configuration dependency
 Spring Boot automatically declare the correct version which is compatible with your Boot version. 
 If we are not using Spring Boot, declare the Kafka jar as a dependency:
 ```xml
@@ -332,7 +379,7 @@ public class Config {
 
 As the example shows, that without Spring Boot is need to be defined several infrastructure beans
 
-### Without Spring
+## Kafka without Spring
 Now let’s see simple usage of Kafka consumer without using Spring.
 
 ```java
@@ -360,11 +407,10 @@ In this example the consumer is subscribing to the topics topic1 and topic2 as p
 
 The deserializer settings specify how to turn bytes into objects. For example, by specifying string deserializers, we are saying that our record's key and value will just be simple strings.
 
-# JMS Configuration
+## JMS Configuration
 
-For JMS configuration
 
-### In Spring Boot
+### JMS in Spring Boot
 ```java
 @Configuration
 @EnableJms
@@ -418,6 +464,7 @@ public class JmsMessageListener {
     }
 }
 ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # Consumer groups in Kafka
 
@@ -471,6 +518,7 @@ public class KafkaMessageListener {
 ```
 See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/groups/kafka) 
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # Topics in JMS
 This chapter is about how topic are use in JMS and how similar is to ques in Kafka.
@@ -505,7 +553,7 @@ public JmsTemplate jmsTemplate() {
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-#Performance
+# Performance
 
 In general Kafka is distributed streaming platform which offers also horizontal scalability
 and high throughput. For real time data processing is pickup Kafka over JMS more common.
@@ -565,7 +613,6 @@ public void sampleJmsListenerMethod2(TextMessage message) throws JMSException {
 ```
 See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/filtering/jms)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Kafka filtering
 
@@ -638,6 +685,7 @@ public void sendMessageToPartition(String topic, String message, int partition) 
 By that configuration we guarantee that send message will have correct order in consumer.
 See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/ordering/kafka)
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 ## Contact

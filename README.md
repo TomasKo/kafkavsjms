@@ -649,6 +649,7 @@ and also Kafka have possibility to filter via streams which is modern functional
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- ORDERING -->
 # Ordering
 
 ## JMS order of messages

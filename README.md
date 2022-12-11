@@ -33,13 +33,13 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#About The Project">About The Project</a>
+      <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#Getting Started">Getting Started</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
       </ul>
     </li>
     <li>
-      <a href="#general examples of using kafka and JMS">General examples of using Kafka and JMS</a>
+      <a href="#general-examples-of-using-kafka-and-JMS">General examples of using Kafka and JMS</a>
       <ul>
         <li><a href="#JMS">JMS</a></li>
       </ul>
@@ -47,23 +47,23 @@
         <li><a href="#Kafka">Kafka</a></li>
       </ul>
       <ul>
-        <li><a href="#Kafka in Spring Boot">Kafka in Spring Boot</a></li>
+        <li><a href="#kafka-in-spring-boot">Kafka in Spring Boot</a></li>
       </ul>
       <ul>
-        <li><a href="#Kafka without Spring Boot">Kafka without Spring Boot</a></li>
+        <li><a href="#afka-without-spring-boot">Kafka without Spring Boot</a></li>
       </ul>
       <ul>
-        <li><a href="#Kafka without Spring">Kafka without Spring</a></li>
+        <li><a href="#kafka-without-spring">Kafka without Spring</a></li>
       </ul>
       <ul>
-        <li><a href="#JMS Configuration">JMS Configuration</a></li>
+        <li><a href="#JMS-configuration">JMS Configuration</a></li>
       </ul>
     </li>
     <li>
-      <a href="#consumer groups in Kafka">Consumer groups in Kafka</a>
+      <a href="#consumer-groups-in-kafka">Consumer groups in Kafka</a>
     </li>
     <li>
-      <a href="#topics in JMS">Topics in JMS</a>
+      <a href="#topics-in-JMS">Topics in JMS</a>
     </li>
     <li>
       <a href="#performance">Performance</a>
@@ -71,19 +71,19 @@
     <li>
       <a href="#filtering">Filtering</a>
       <ul>
-        <li><a href="##JMS Message Selector">JMS Message Selector</a></li>
+        <li><a href="#JMS-message-selector">JMS Message Selector</a></li>
       </ul>
       <ul>
-        <li><a href="##Kafka filtering">Kafka filtering</a></li>
+        <li><a href="#kafka-filtering">Kafka filtering</a></li>
       </ul>
     </li>
     <li>
       <a href="#ordering">Ordering</a>
       <ul>
-        <li><a href="##JMS order of messages">JMS order of messages</a></li>
+        <li><a href="#JMS-order-of-messages">JMS order of messages</a></li>
       </ul>
       <ul>
-        <li><a href="##Order guarantee in Kafka">Order guarantee in Kafka</a></li>
+        <li><a href="#order-guarantee-in-kafka">Order guarantee in Kafka</a></li>
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>

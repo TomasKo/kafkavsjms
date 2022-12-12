@@ -118,7 +118,7 @@ Java components that are designed to exchange messages.
 # General examples of using Kafka and JMS
 This section shows what Kafka and JMS are in general and in which industries they are used. 
 Many systems use remote procedure calls which are synchronous- producer must block process and wait until the called 
-method finish, and thus is problem in development enterprise applications. Here the message-oriented systems provide grate
+method finish, and thus is problem in development enterprise applications. Here the message-oriented systems provide great
 solution for asynchronous problem. They are based on asynchronous structure and provide message delivery across multiple systems. 
 In generally both have similar structure:
 
@@ -688,6 +688,16 @@ By that configuration we guarantee that send message will have correct order in 
 See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/ordering/kafka)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+# Conclusion
+In chapter <a href="#general-examples-of-using-kafka-and-JMS">General examples of using Kafka and JMS</a>
+we describe that Kafka and JMS have different use cases. It is important to know their differences in order to choose 
+the right product for the right case. For process a huge amount of data in real-time is better 
+to choose Kafka. Whereas JMS would be the proper choice if application want to do one-time delivery of messages.
+
+This guide shows the main differences between JMS and Kafka. I hope by reading it you can get more information and then
+consider which one is better for your business requirements and your capabilities. 
+
 
 <!-- CONTACT -->
 ## Contact

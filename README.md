@@ -517,7 +517,7 @@ public class KafkaMessageListener {
     }
 }
 ```
-See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/groups/kafka) 
+See the functional [example.](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/groups/kafka) 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -550,6 +550,7 @@ public JmsTemplate jmsTemplate() {
     return jmsTemplate;
 }
 ```
+See the functional [example.](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/topics/jms)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -612,7 +613,7 @@ public void sampleJmsListenerMethod2(TextMessage message) throws JMSException {
     logger.info(String.format("----Listener2 Received text message: %s ---------", message.getText()));
 }
 ```
-See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/filtering/jms)
+See the functional [example.](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/filtering/jms)
 
 
 ## Kafka filtering
@@ -641,7 +642,7 @@ public void streamTopology(){
             .to("topic2", Produced.with(Serdes.String(), Serdes.String()));
 }
 ```
-See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/filtering/kafka)
+See the functional [example.](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/filtering/kafka)
 
 ### Conclusion
 Kafka has more options how to filter the messages than a JMS. In JMS is filtering implement by configuration where it is more
@@ -685,7 +686,7 @@ public void sendMessageToPartition(String topic, String message, int partition) 
 }
 ```
 By that configuration we guarantee that send message will have correct order in consumer.
-See the functional [example](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/ordering/kafka)
+See the functional [example.](https://github.com/TomasKo/seniorprogram/tree/master/src/main/java/seniorprogram/ordering/kafka)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

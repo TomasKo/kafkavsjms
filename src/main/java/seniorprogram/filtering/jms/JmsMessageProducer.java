@@ -22,7 +22,7 @@ public class JmsMessageProducer {
 
     public void sendTextMessage(String destination, String message) {
         jmsTemplate.setDeliveryPersistent(true);
-        //logger.info(String.format("Sending message to: %s message: %s", destination, message));
+        //logger.info(String.format("Sending message to: %s message: %s.", destination, message));
         jmsTemplate.send(destination, s -> s.createTextMessage(message));
     }
 

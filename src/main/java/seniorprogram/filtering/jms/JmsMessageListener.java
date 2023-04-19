@@ -16,11 +16,11 @@ public class JmsMessageListener {
 
     @JmsListener(destination = "queue-2")
     public void sampleJmsListenerMethod(TextMessage message) throws JMSException {
-        logger.info(String.format("----Listener1 Received text message: %s ---------", message.getText()));
+        logger.info(String.format("---- Listener1 Received text message: %s ---------", message.getText()));
     }
 
     @JmsListener(destination = "queue-3", selector = "myproperty = 'hight'")
     public void sampleJmsListenerMethod2(TextMessage message) throws JMSException {
-        logger.info(String.format("----Listener2 Received text message: %s ---------", message.getText()));
+        logger.info(String.format("---- Listener2 Received text message: %s ---------", message.getText()));
     }
 }
